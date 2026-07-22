@@ -9,7 +9,7 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+const allowedOrigins = (process.env.FRONTEND_URL || 'https://hack-sutra.vercel.app,http://localhost:5173')
   .split(',').map((origin) => origin.trim()).filter(Boolean);
 
 app.set('trust proxy', 1);
