@@ -9,8 +9,9 @@ const connectDB = async () => {
     return null;
   }
 
+  let conn;
   try {
-    const conn = await mongoose.connect(uri, {
+    conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 10000,
       maxPoolSize: Number(process.env.MONGO_MAX_POOL_SIZE || 10),
     });
