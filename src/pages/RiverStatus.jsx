@@ -4,7 +4,7 @@ import { api } from '../utils/api';
 
 export default function RiverStatus() {
   const [stations, setStations] = useState([]); const [selected, setSelected] = useState(''); const [health, setHealth] = useState(null); const [loading, setLoading] = useState(true); const [error, setError] = useState('');
-  const load = async () => { setLoading(true); try { const overview = await api.get('/dashboard/stats'); setStations(overview.locationData || []); setSelected((current) => current || overview.locationData?.[0]?._id || ''); } catch (err) { setError(err.message); } finally { setLoading(false); } };
+  const load = async () => { setLoading(true); try { const overview = await api.get('/dashboard/overview'); setStations(overview.locationData || []); setSelected((current) => current || overview.locationData?.[0]?._id || ''); } catch (err) { setError(err.message); } finally { setLoading(false); } };
   useEffect(() => { load(); }, []);
   useEffect(() => { if (selected) api.get(`/dashboard/river-health/${encodeURIComponent(selected)}`).then(setHealth).catch(() => setHealth(null)); }, [selected]);
   const reading = health?.latestReading;

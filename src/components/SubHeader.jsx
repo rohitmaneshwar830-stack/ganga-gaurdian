@@ -8,7 +8,7 @@ export default function SubHeader() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const data = await api.get('/dashboard/stats');
+        const data = await api.get('/dashboard/overview');
         setActiveSensors(data.monitoringLocations);
         setLastSync(data.latestTimestamp ? new Date(data.latestTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Just now');
     } catch {
