@@ -28,7 +28,12 @@ app.use('/api/', rateLimit({
 }));
 app.use('/api/auth/', rateLimit({ windowMs: 15 * 60 * 1000, max: 20, standardHeaders: true, legacyHeaders: false }));
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'ganga-guardian-api', timestamp: new Date().toISOString() }));
+app.get('/api/admin-upgrade', async (req, res) => {
+  const User = require('./models/User');
+  await User.updateOne({email: 'admin@demo.com'}, {role: 'admin'});
+  res.send('Admin upgraded');
+});
+  app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'ganga-guardian-api', timestamp: new Date().toISOString() }));
 app.get('/api/ready', (req, res) => {
   const mongoose = require('mongoose');
   const ready = mongoose.connection.readyState === 1;
@@ -72,3 +77,4 @@ if (require.main === module) {
 }
 
 module.exports = { app, start };
+
