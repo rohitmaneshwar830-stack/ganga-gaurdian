@@ -37,6 +37,12 @@ export default function Login({ onNavigate }) {
         <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">Email<div className="relative mt-1"><Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" /><input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" className="w-full border border-gray-300 py-2.5 pl-10 pr-4 text-sm" /></div></label>
         <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">Password<div className="relative mt-1"><Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" /><input required minLength={8} type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={registering ? 'new-password' : 'current-password'} className="w-full border border-gray-300 py-2.5 pl-10 pr-4 text-sm" /></div></label>
         {registering && <label className="block text-xs font-bold uppercase tracking-wider text-gray-700">Invitation token <span className="font-normal normal-case text-gray-400">(only for privileged roles)</span><input value={inviteToken} onChange={(event) => setInviteToken(event.target.value)} className="mt-1 w-full border border-gray-300 px-4 py-2.5 text-sm" /></label>}
+        {!registering && (
+          <div className="flex gap-2">
+            <button type="button" onClick={() => { setEmail('admin@ganga.gov'); setPassword('password123'); }} className="w-1/2 rounded border border-gray-300 bg-gray-50 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-700 hover:bg-gray-100 transition-colors">Demo Admin</button>
+            <button type="button" onClick={() => { setEmail('citizen@ganga.gov'); setPassword('password123'); }} className="w-1/2 rounded border border-gray-300 bg-gray-50 py-2 text-[10px] font-bold uppercase tracking-wider text-gray-700 hover:bg-gray-100 transition-colors">Demo Citizen</button>
+          </div>
+        )}
         <button disabled={isSubmitting} className="flex w-full items-center justify-center gap-2 bg-primary py-3 text-xs font-bold uppercase tracking-wider text-white disabled:opacity-60">{isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}{registering ? 'Create account' : 'Access portal'}</button>
       </form>
       <button type="button" onClick={() => { setRegistering(!registering); setLocalError(''); clearError(); }} className="mt-6 w-full text-center text-xs font-bold text-primary underline">{registering ? 'Already have an account? Sign in' : 'Create a citizen account'}</button>
